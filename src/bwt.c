@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "bwt.h"
 
 /* Suffix struct that keeps track of string and starting index. */
 struct Suffix {
@@ -18,15 +19,32 @@ static void createSuffixArr(const char *str, int len, int *suffixArr);
  * @param str String to be transformed.
  * @return const char* Transformed string.
  */
-const char *createBww(const char *str){
+const char *createBwt(const char *str){
     
     int len = strlen(str);
-    int suffixArr[len + 1];
-    createSuffixArr(str, len + 1, suffixArr);
 
-    return NULL;
+    char *dup = malloc((len + 1) * sizeof(char));
+    strncpy(dup, str, len);
+    dup[len] = BWT_EOF;
+
+    int suffixArr[len + 1];
+    createSuffixArr(dup, len + 1, suffixArr);
+
+    char *ret = malloc((len + 1) * sizeof(char));
+
+    /* Last column will be the character to the left of suffix array
+       starting index. */
+    int i;
+    for (i = 0; i < len + 1; i++){
+        ret[i] = suffixArr[i] == 0 ? BWT_EOF : dup[suffixArr[i] - 1];
+    }
+
+    free(dup);
+
+    return ret;
 }
 
+/* Comparator for stdlib quicksort. */
 static int comparator(const void *p, const void *q){
     const char *pStr = (*(struct Suffix **)p)->string;
     const char *qStr = (*(struct Suffix **)q)->string;
@@ -58,8 +76,21 @@ static void createSuffixArr(const char *str, int len, int *suffixArr){
         temp[i] = s;
     }
 
+    /* Sort suffixes. */
     qsort((void *)temp, len, sizeof(struct Suffix *), comparator);
+
+    /* Only the starting indices are relevant. */
     for (i = 0; i < len; i++){
         puts(temp[i]->string);
+        suffixArr[i] = temp[i]->idx;
     }
+
+    /* Free everything. */
+    for (i = 0; i < len; i++){
+        free((void *)temp[i]->string);
+        free((void *)temp[i]);
+    }
+    free((void *)temp);
+
+    return;
 }

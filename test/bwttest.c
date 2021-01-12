@@ -31,6 +31,7 @@ int clean_suite(void) {
     return 0;
 }
 
+/* Main runner function for unit tests. */
 int main() {
 
    CU_pSuite pSuite = NULL;

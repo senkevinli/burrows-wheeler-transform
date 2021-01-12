@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install CUnit
+      run: sudo apt-get install libcunit1 libcunit1-doc libcunit1-dev
+    - name: Running tests
+      run: make check
+    - name: Clean up
+      run: make clean

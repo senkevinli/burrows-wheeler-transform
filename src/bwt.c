@@ -81,7 +81,6 @@ static void createSuffixArr(const char *str, int len, int *suffixArr){
 
     /* Only the starting indices are relevant. */
     for (i = 0; i < len; i++){
-        puts(temp[i]->string);
         suffixArr[i] = temp[i]->idx;
     }
 

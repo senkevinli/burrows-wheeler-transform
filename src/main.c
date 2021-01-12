@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "bwt.h"
+#include <assert.h>
 
 int main (int argc, const char *argv[]){
-    const char *str = "banana";
-    const char *ret = createBwt(str);
-    puts(ret);
+    assert(argc == 2);
+    printf("Transformed string is: %s\n", createBwt(argv[1]));
 }

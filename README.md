@@ -1,4 +1,5 @@
 # Burrows-Wheeler-Transform
+![Tests](https://github.com/senkevinli/burrows-wheeler-transform/workflows/Tests/badge.svg)
 > C Implementation of the Burrows-Wheeler-Transform.
 
 ## Task

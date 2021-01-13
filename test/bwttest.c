@@ -1,7 +1,8 @@
+#include <stdlib.h>
 #include "CUnit/Basic.h"
 #include "../src/bwt.h"
 
-void test_simple(void) {
+void test_creation(void) {
     const char *orig = "banana";
     const char *transformed = createBwt(orig);
     CU_ASSERT_STRING_EQUAL("annb$aa", transformed);
@@ -27,7 +28,33 @@ void test_simple(void) {
     );
 
     free((void *)transformed);
+}
 
+/* For helping inversion tests. */
+void inversion_helper(const char *strings[], int len) {
+    int i;
+    for (i = 0; i < len; i++) {
+        const char *orig = strings[i];
+
+        const char *transformed = createBwt(orig);
+        const char *inverted = inverseBwt(transformed);
+        CU_ASSERT_STRING_EQUAL(orig, inverted);
+
+        free((void *)transformed);
+        free((void *)inverted);
+    }
+}
+
+void test_inversion(void) {
+    const char *strings[] = {
+        "banana",
+        "mississippi",
+        "aaaaaaa",
+        "ilikepie",
+        "acaatgtcccgagtcaggaccggtgactagcttgcatctataatgattgccgttcacccg"
+    };
+    inversion_helper(strings, 5);
+    
 }
 
 int init_suite(void) {
@@ -51,7 +78,8 @@ int main() {
       return CU_get_error();
    }
 
-   if ((NULL == CU_add_test(pSuite, "test proper transformation", test_simple)))
+   if ((NULL == CU_add_test(pSuite, "test proper transformation", test_creation) ||
+        NULL == CU_add_test(pSuite, "test inversion", test_inversion)))
    {
       CU_cleanup_registry();
       return CU_get_error();

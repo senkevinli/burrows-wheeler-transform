@@ -51,9 +51,10 @@ void test_inversion(void) {
         "mississippi",
         "aaaaaaa",
         "ilikepie",
+        "",
         "acaatgtcccgagtcaggaccggtgactagcttgcatctataatgattgccgttcacccg"
     };
-    inversion_helper(strings, 5);
+    inversion_helper(strings, 6);
     
 }
 

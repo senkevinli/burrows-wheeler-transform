@@ -23,3 +23,18 @@ Our end goal is to implement an alignment (also known as search in lay parlance)
 The BWT algorithm however is old, almost 25 years old, which is close to dinosaur territory in CS. Despite much trying however, there has not been much of an advance in thinking about the theory of such algorithms that led to improvements. But lately, a new paper has brought up the idea of a generalized version of the BWT (https://arxiv.org/pdf/1902.01280.pdf). Suggesting that there is a whole class of BWT like algorithms that could be useful for different purposes.
 
 **The goal for this week is very simple. Implement a C/C++ version of the BWT, suffix array and and another function to compute it's inverse on a simple string.**
+
+## Implementation
+
+### Creation
+
+The Burrows Wheeler Transformed string is constructed through the assemblage of characters in the last column of the (sorted) cyclically rotated matrix.
+
+*Example:*
+
+Consider the string: `abaacd`
+It's cyclic rotation matrix would look like this:
+`a<sub>2</sub>`
+### Inversion
+
+The inversion of the Burrows Wheeler Transform is necessary for decompression.

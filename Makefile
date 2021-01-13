@@ -6,12 +6,12 @@ DIR := $(shell pwd)
 
 .PHONY: check
 check:
-	gcc -o test.o $(DIR)/src/bwt.c $(DIR)/test/bwttest.c -lcunit
+	$(CC) -o test.o $(DIR)/src/bwt.c $(DIR)/test/bwttest.c -lcunit
 	./test.o
 
 .PHONY: all
 all:
-	gcc -o bwt.o $(DIR)/src/bwt.c $(DIR)/src/main.c $(CFLAGS)
+	$(CC) -o bwt.o $(DIR)/src/bwt.c $(DIR)/src/main.c $(CFLAGS)
 
 .PHONY: clean
 clean:

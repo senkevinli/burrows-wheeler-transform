@@ -10,9 +10,13 @@ void test_simple(void) {
     transformed = createBwt(orig);
     CU_ASSERT_STRING_EQUAL("ipssm$pissii", transformed);
 
+    free((void *)transformed);
+
     orig = "aaaaaaa";
     transformed = createBwt(orig);
     CU_ASSERT_STRING_EQUAL("aaaaaaa$", transformed);
+
+    free((void *)transformed);
 
     orig =  
     "acaatgtcccgagtcaggaccggtgactagcttgcatctataatgattgccgttcacccg";
@@ -21,6 +25,9 @@ void test_simple(void) {
         "gtc$cggtcgtcaagattgatccagccccatgcgtctttaacatgcacctggagattagca",
         transformed
     );
+
+    free((void *)transformed);
+
 }
 
 int init_suite(void) {

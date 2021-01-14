@@ -151,6 +151,17 @@ static void countSort(const char *src, int len, char *dest, int range)
  * @param suffixArr Will be modified with suffix indices after calling.
  */
 static void skewSuffixArr(const char *str, int len, int *suffixArr) {
+    
+     /* Pad our string with EOFs if not a multiple of 3. */
+    int newLength = len;
+    if (len % 3 != 0)
+        newLength = len + (3 - (len % 3));
+
+    char *padded = calloc(newLength + 1, sizeof(char));
+    strncpy(padded, str, len);
+    memset(padded + len, BWT_EOF, sizeof(char) * (newLength - len));
+
+    
     return;
 }
 
@@ -205,6 +216,6 @@ const char *inverseBwt(const char *str) {
     free((void *)firstCol);
 
     /* If assertion fails, string cannot be inverted. */
-    //assert(strlen(ret) == len - 1);
+    assert(strlen(ret) == len - 1);
     return ret;
 }
